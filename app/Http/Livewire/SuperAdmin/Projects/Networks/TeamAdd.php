@@ -3,31 +3,30 @@
 namespace App\Http\Livewire\SuperAdmin\Projects\Networks;
 
 use App\Models\Network;
-use App\Models\Team;
+use App\Models\Status;
 use LivewireUI\Modal\ModalComponent;
 
 class TeamAdd extends ModalComponent
 {
-    public $teams;
-    public $team_id = [];
-    public $network;
+    public $teams = [];
+    public $network, $status;
 
     public function mount($network_id)
     {
-        $this->teams = Team::all();
-        $this->network = Network::where('id', $network_id)->first();
+        $this->network = Network::findOrFail($network_id);
+        $this->status = Status::where('status_name', 'LIKE', 'Open')->first();
     }
 
-    protected $rules = ['team_id' => 'required'];
+    protected $rules = ['teams' => 'required'];
 
     public function save()
     {
         foreach ($this->validate() as $team) {
-            $this->network->teams()->sync($team, false);
+            $this->network->teams()->attach($team);
         }
-        $this->closeModalWithEvents([
-            'save'
-        ]);
+        $this->forceClose()->closeModal();
+        return redirect()->route('super-admin.projects.networks.show',[$this->network->id])->with('success',
+            __('generals.notifications.success', ['type' => __('generals.titles.desactivated')]));
     }
 
     public function close()

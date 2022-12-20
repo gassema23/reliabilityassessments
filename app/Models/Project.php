@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Project extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids, Notifiable;
+    use HasFactory, SoftDeletes, HasUuids, Notifiable, LogsActivity;
 
     protected $fillable = [
         'planner_id',
@@ -21,6 +23,13 @@ class Project extends Model
         'project_complete',
         'project_due_date'
     ];
+
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function prime()
     {

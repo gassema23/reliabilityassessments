@@ -26,7 +26,7 @@
 </head>
 <body class="font-sans antialiased bg-slate-50 text-slate-700" x-data="sidebar()"
       @resize.window="handleResize()">
-<x-dialog z-index="z-50" blur="md" align="center" />
+<x-dialog z-index="z-50" blur align="center" />
 <div>
     <div class="xl:flex">
         @include('layouts.navigations.super-admin.sidebar-navigation')

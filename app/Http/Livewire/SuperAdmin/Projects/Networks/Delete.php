@@ -9,34 +9,29 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use LivewireUI\Modal\ModalComponent;
 
-class TeamDelete extends ModalComponent
+class Delete extends ModalComponent
 {
 
     public $network;
-    public $team_id;
 
     /**
-     * @param $network
+     * @param $project
      *
      * @return void
      */
-    public function mount($network, $team_id)
+    public function mount($network)
     {
         $this->network = Network::findOrFail($network);
-        $this->team_id = $team_id;
     }
-
-    protected $listeners = ['team-delete' => 'delete'];
 
     /**
      * @return RedirectResponse
      */
     public function destroy()
     {
-        $this->network->teams()->detach($this->team_id);
-        $this->forceClose()->closeModal();
-            return redirect()->route('super-admin.projects.networks.show',[$this->network->id])->with('success',
-                __('generals.notifications.success', ['type' => __('generals.titles.desactivated')]));
+        $this->network->delete();
+        return redirect()->route('super-admin.projects.networks.index')->with('success',
+            __('generals.notifications.success', ['type' => __('generals.titles.desactivated')]));
     }
 
     public function close()
@@ -50,8 +45,8 @@ class TeamDelete extends ModalComponent
     public function render()
     {
         return view('livewire.super-admin.delete', [
-            'title'   => __('generals.texts.title-desactivate', ['name' => __('generals.titles.team')]),
-            'message' => __('generals.texts.descriptions-desactivate', ['name' => __('generals.titles.team')])
+            'title'   => __('generals.texts.title-desactivate', ['name' => __('generals.titles.network')]),
+            'message' => __('generals.texts.descriptions-desactivate', ['name' => __('generals.titles.network')])
         ]);
     }
 }

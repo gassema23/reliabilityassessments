@@ -22,6 +22,17 @@
                     option-value="id"
                 />
             </div>
+            <div class="col-span-6 sm:col-span-4">
+                <x-select
+                    :label="Str::ucfirst(__('generals.titles.team'))"
+                    :placeholder="Str::ucfirst(__('generals.forms.selections'))"
+                    :async-data="route('api.teams.index')"
+                    option-label="team_name"
+                    wire:model.defer="teams"
+                    option-value="id"
+                    multiselect
+                />
+            </div>
         </x-slot>
         <x-slot name="actions">
             <x-button type="button" wire:click="save" squared spinner positive

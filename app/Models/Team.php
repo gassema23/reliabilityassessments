@@ -19,4 +19,8 @@ class Team extends Model
     {
         return $this->belongsToMany(Network::class)->withTimestamps();
     }
+
+    public function taskTeams(){
+        return $this->belongsToMany(Task::class)->using(TaskTeam::class);
+    }
 }

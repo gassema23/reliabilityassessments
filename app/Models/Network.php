@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Network extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, SoftDeletes, HasUuids, LogsActivity;
 
     protected $fillable = [
         'project_id',
@@ -22,6 +24,13 @@ class Network extends Model
         'network_complete',
         'network_due_date',
     ];
+
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function project()
     {
@@ -40,6 +49,6 @@ class Network extends Model
 
     public function teams()
     {
-        return $this->belongsToMany(Team::class)->withTimestamps();
+        return $this->belongsToMany(Team::class)->using(NetworkTeam::class)->withTimestamps();
     }
 }

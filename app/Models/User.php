@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
-    use HasApiTokens , HasFactory , Notifiable , SoftDeletes , HasUuids;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasUuids, LogsActivity;
 
     public $incrementing = false;
     public $keyType = 'string';
@@ -24,16 +26,23 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'f_name' ,
-        'l_name' ,
-        'p_number' ,
-        'employe_id' ,
-        'approved_at' ,
-        'role_id' ,
-        'team_id' ,
-        'email' ,
-        'password' ,
+        'f_name',
+        'l_name',
+        'p_number',
+        'employe_id',
+        'approved_at',
+        'role_id',
+        'team_id',
+        'email',
+        'password',
     ];
+
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,8 +50,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password' ,
-        'remember_token' ,
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -51,8 +60,8 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime' ,
-        'name' => FullName::class ,
+        'email_verified_at' => 'datetime',
+        'name'              => FullName::class,
     ];
 
     /**
@@ -80,13 +89,13 @@ class User extends Authenticatable
     public function getRedirectRouteName()
     {
         $roles = Role::find($this->role_id)->get();
-        if($roles) {
+        if ($roles) {
             foreach ($roles as $role) {
                 if (auth()->user()->role_id === $role->id) {
                     return strtolower($role->role_name).'.dashboard';
                 }
             }
-        }else{
+        } else {
             abort(404);
         }
     }
