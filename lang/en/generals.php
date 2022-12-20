@@ -122,7 +122,11 @@ return [
         'roles'        => 'roles',
         'clli'         => 'clli',
         'number'       => ':Name number',
-        'complete'     => 'complete'
+        'complete'     => 'complete',
+        'completion' => 'completion',
+        'title'        => 'title',
+        'date-start'   => 'date start',
+        'deadline'     => 'deadline'
     ],
     'notifications' => [
         'success'           => 'Data has been :type successfully!',

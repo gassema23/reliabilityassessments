@@ -13,6 +13,8 @@ class Area extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, LogsActivity;
 
+    protected static $logName = 'AreaModelLog';
+
     protected $fillable = [
         'area_name',
         'area_shortname',

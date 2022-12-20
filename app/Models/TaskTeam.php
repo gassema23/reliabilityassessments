@@ -12,6 +12,8 @@ class TaskTeam extends Pivot
 {
     use HasFactory, HasUuids, LogsActivity;
 
+    protected static $logName = 'TaskTeamModelLog';
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->logAll();

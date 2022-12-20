@@ -11,6 +11,7 @@ class Team extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
+    protected static $logName = 'TeamModelLog';
     protected $fillable = [
         'team_name',
     ];
@@ -20,7 +21,8 @@ class Team extends Model
         return $this->belongsToMany(Network::class)->withTimestamps();
     }
 
-    public function taskTeams(){
+    public function taskTeams()
+    {
         return $this->belongsToMany(Task::class)->using(TaskTeam::class);
     }
 }

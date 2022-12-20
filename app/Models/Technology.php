@@ -13,6 +13,7 @@ class Technology extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, LogsActivity;
 
+    protected static $logName = 'TechnologyModelLog';
     protected $fillable = [
         'technology_name',
     ];

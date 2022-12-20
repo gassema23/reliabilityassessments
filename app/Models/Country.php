@@ -12,7 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Country extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, LogsActivity;
-
+    protected static $logName = 'CountryModelLog';
     protected $fillable = [
         'country_shortname',
         'country_name',

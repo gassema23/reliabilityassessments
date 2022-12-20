@@ -12,7 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class City extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, LogsActivity;
-
+    protected static $logName = 'CityModelLog';
     protected $fillable = [
         'city_name',
         'clli',

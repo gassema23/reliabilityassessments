@@ -13,6 +13,7 @@ class Task extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, LogsActivity;
 
+    protected static $logName = 'TaskModelLog';
     protected $fillable = [
         'task_name',
         'technology_id'

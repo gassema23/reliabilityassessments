@@ -13,7 +13,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Project extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, Notifiable, LogsActivity;
-
+    protected static $logName = 'ProjectModelLog';
     protected $fillable = [
         'planner_id',
         'prime_id',

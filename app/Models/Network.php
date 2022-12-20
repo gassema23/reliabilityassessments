@@ -12,7 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Network extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, LogsActivity;
-
+    protected static $logName = 'NetworkModelLog';
     protected $fillable = [
         'project_id',
         'city_id',

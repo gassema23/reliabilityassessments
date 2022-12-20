@@ -18,6 +18,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasUuids, LogsActivity;
 
+    protected static $logName = 'UserModelLog';
     public $incrementing = false;
     public $keyType = 'string';
     /**

@@ -13,6 +13,8 @@ class NetworkTeam extends Pivot
 {
     use HasFactory, SoftDeletes, HasUuids, LogsActivity;
 
+    protected static $logName = 'NetworkTeamModelLog';
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->logAll();
