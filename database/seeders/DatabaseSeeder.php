@@ -22,6 +22,15 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             TeamSeeder::class,
             UserSeeder::class,
+
+            CountriesTableSeeder::class,
+            StatesTableSeeder::class,
+            AreasTableSeeder::class,
+            CitiesTableSeeder::class,
+
+            StatusesTableSeeder::class,
+            TechnologiesTableSeeder::class,
+            TasksTableSeeder::class
         ]);
     }
 }

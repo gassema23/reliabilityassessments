@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'role_id'     => $role_id,
             'team_id'     => $team_id,
             'p_number'    => '4187491474',
-            'email'       => 'mathieu.gasse2@telus.com',
+            'email'       => 'admin@admin.com',
             'password'    => Hash::make('password'),
             'approved_at' => now()
         ]);

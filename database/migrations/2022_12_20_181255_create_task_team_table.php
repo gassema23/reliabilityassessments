@@ -13,10 +13,11 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('task_team', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->foreignUuid('team_id')->constrained();
-            $table->foreignUuid('task_id')->constrained();
-            $table->primary(['id', 'team_id', 'task_id']);
+            $table->uuid('id')->primary();
+            $table->foreignUuid('team_id')->constrained()->on('teams')->references('id');
+            $table->foreignUuid('task_id')->constrained()->on('tasks')->references('id');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

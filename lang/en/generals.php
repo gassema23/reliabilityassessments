@@ -71,6 +71,7 @@ return [
         'task'             => 'task',
         'tasks'            => 'tasks',
         'color'            => 'color',
+        'new'              => 'new'
     ],
     'texts'         => [
         'title-create'             => 'Create new :name',
@@ -108,7 +109,9 @@ return [
         'due-date'         => 'due date',
         'network_no'       => 'network number',
         'network_element'  => 'network element',
-        'selected'         => 'select a :name'
+        'selected'         => 'select a :name',
+        'risk'             => 'risk',
+        'action'           => 'action'
     ],
     'tables'        => [
         'name'         => ':Name name',
@@ -123,7 +126,7 @@ return [
         'clli'         => 'clli',
         'number'       => ':Name number',
         'complete'     => 'complete',
-        'completion' => 'completion',
+        'completion'   => 'completion',
         'title'        => 'title',
         'date-start'   => 'date start',
         'deadline'     => 'deadline'

@@ -51,7 +51,9 @@ class NetworkController extends Controller
      */
     public function show($id)
     {
-        $network = Network::where('id', $id)->with(['teams'])->first();
-        return view('super-admin.projects.networks.show', ['network' => $network]);
+        $network = Network::where('id', $id)->with(['teams','teams.user'])->first();
+        return view('super-admin.projects.networks.show', [
+            'network'   => $network
+        ]);
     }
 }

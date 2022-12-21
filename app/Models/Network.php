@@ -12,6 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Network extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, LogsActivity;
+
     protected static $logName = 'NetworkModelLog';
     protected $fillable = [
         'project_id',
@@ -49,6 +50,9 @@ class Network extends Model
 
     public function teams()
     {
-        return $this->belongsToMany(Team::class)->using(NetworkTeam::class)->withTimestamps();
+        return $this->belongsToMany(Team::class)
+            ->using(NetworkTeam::class)
+            ->whereNull('network_team.deleted_at')
+            ->withTimestamps();
     }
 }

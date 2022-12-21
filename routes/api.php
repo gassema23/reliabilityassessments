@@ -24,3 +24,4 @@ Route::post('states/{country_id}', [ApiController::class, 'statesSelected'])->na
 Route::post('areas/{state_id}', [ApiController::class, 'areasSelected'])->name('api.areas.selected');
 Route::get('projects', [ApiController::class, 'projects'])->name('api.projects.index');
 Route::get('technologies', [ApiController::class, 'technologies'])->name('api.technologies.index');
+Route::get('statuses', [ApiController::class, 'statuses'])->name('api.statuses.index');

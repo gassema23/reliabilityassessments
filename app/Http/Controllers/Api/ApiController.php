@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\Project;
 use App\Models\Role;
 use App\Models\State;
+use App\Models\Status;
 use App\Models\Team;
 use App\Models\Technology;
 use App\Models\User;
@@ -86,8 +87,8 @@ class ApiController extends Controller
             )
             ->when(
                 $request->exists('selected'),
-                fn (Builder $query) => $query->whereIn('id', $request->input('selected', [])),
-                fn (Builder $query) => $query->limit(10)
+                fn(Builder $query) => $query->whereIn('id', $request->input('selected', [])),
+                fn(Builder $query) => $query->limit(10)
             )
             ->get()
             ->map(function (Project $project) {
@@ -269,6 +270,27 @@ class ApiController extends Controller
             ->get()
             ->map(function (Area $area) {
                 return $area;
+            });
+    }
+
+    public function statuses(Request $request): Collection
+    {
+        return Status::query()
+            ->select('id', 'status_name')
+            ->orderBy('status_name')
+            ->when(
+                $request->search,
+                fn(Builder $query) => $query
+                    ->where('status_name', 'like', "%{$request->search}%")
+            )
+            ->when(
+                $request->exists('selected'),
+                fn(Builder $query) => $query->whereIn('id', $request->input('selected', [])),
+                fn(Builder $query) => $query->limit(10)
+            )
+            ->get()
+            ->map(function (Status $status) {
+                return $status;
             });
     }
 }

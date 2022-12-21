@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class=" px-6 py-4 flex flex-row-reverse w-full border-t border-slate-200 bg-slate-100">
-            <x-button class="ml-2" wire:click="save" loading-delay="long" wire:loading.attr="disabled" spinner="destroy"
+            <x-button class="ml-2" wire:click="save" spinner="save"
                       squared positive
                       :label="Str::title(__('generals.titles.save'))"/>
             <x-button type="button" squared dark spinner="close" :label="__('Cancel')" wire:click="close"/>

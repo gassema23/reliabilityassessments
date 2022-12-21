@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\SuperAdmin\Projects\Networks;
 
 use App\Models\Network;
+use App\Models\Team;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -13,17 +14,21 @@ class TeamDelete extends ModalComponent
 {
 
     public $network;
-    public $team_id;
+    public $teams = [];
 
     /**
      * @param $network
      *
      * @return void
      */
-    public function mount($network, $team_id)
+    public function mount($network_id, $team_id)
     {
-        $this->network = Network::findOrFail($network);
-        $this->team_id = $team_id;
+        $this->network = Network::findOrFail($network_id);
+        $this->teams = Team::findOrFail($team_id)
+            ->whereHas('networks', function ($query) use ($team_id) {
+                $query->where('team_id', $team_id);
+            })->get();
+        //dump($this->teams);
     }
 
     protected $listeners = ['team-delete' => 'delete'];
@@ -33,10 +38,10 @@ class TeamDelete extends ModalComponent
      */
     public function destroy()
     {
-        $this->network->teams()->detach($this->team_id);
+        $this->network->teams()->detach($this->teams);
         $this->forceClose()->closeModal();
-            return redirect()->route('super-admin.projects.networks.show',[$this->network->id])->with('success',
-                __('generals.notifications.success', ['type' => __('generals.titles.desactivated')]));
+        return redirect()->route('super-admin.projects.networks.show', [$this->network->id])->with('success',
+            __('generals.notifications.success', ['type' => __('generals.titles.desactivated')]));
     }
 
     public function close()
