@@ -24,18 +24,31 @@
                                           style="background-color: {{$team->statuses($task->id)->color}}">{{$team->statuses($task->id)->status_name}}</span>
                                 @else
                                     <span
-                                        class="py-1 px-2 text-white bg-cyan-500 text-xs">{{Str::ucfirst(__('generals.titles.new'))}}</span>
+                                        class="py-1 px-2 text-white bg-indigo-500 text-xs">{{Str::ucfirst(__('generals.titles.new'))}}</span>
                                 @endif
                             </td>
                             <td class="py-4 px-6 text-end">
-                                <x-button
-                                    spinner
-                                    wire:click.prevent="$emit('openModal','super-admin.projects.networks.new-status', [{{json_encode($task->id)}},{{json_encode($team->id)}},{{json_encode($network->id)}}])"
-                                    label="New status"
-                                    squared
-                                    secondary
-                                    xs
-                                />
+                                @if($team->statuses($task->id))
+                                    @if($team->statuses($task->id)->status_name !== 'Done')
+                                        <x-button
+                                            spinner
+                                            wire:click.prevent="$emit('openModal','super-admin.projects.networks.new-status', [{{json_encode($task->id)}},{{json_encode($team->id)}},{{json_encode($network->id)}}])"
+                                            label="New status"
+                                            squared
+                                            secondary
+                                            xs
+                                        />
+                                    @endif
+                                @else
+                                    <x-button
+                                        spinner
+                                        wire:click.prevent="$emit('openModal','super-admin.projects.networks.new-status', [{{json_encode($task->id)}},{{json_encode($team->id)}},{{json_encode($network->id)}}])"
+                                        label="New status"
+                                        squared
+                                        secondary
+                                        xs
+                                    />
+                                @endif
                             </td>
                         </tr>
                     @endif

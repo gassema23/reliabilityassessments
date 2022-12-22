@@ -13,9 +13,16 @@ module.exports = {
         './vendor/wireui/wireui/ts/**/*.ts',
         './vendor/wireui/wireui/src/View/**/*.php',
         // Power grid
-        './app/Http/Livewire/**/*Table.php',
+        './app/Http/Livewire/**/*.php',
         './vendor/power-components/livewire-powergrid/resources/views/**/*.php',
         './vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php'
+    ],
+    safelist: [
+        {
+            pattern: /bg-(red|green|blue|orange|yellow)-(500)/,
+        },
+        ...[...Array(100).keys()].flatMap(i => [`w-[${i*1}%]`]),
+
     ],
     theme: {
         extend: {
